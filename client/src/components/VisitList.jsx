@@ -5,7 +5,8 @@ import { List } from 'antd';
 function VisitList({ visits }) {
   return (
     <List
-      data={visits}
+      className="visit-list"
+      dataSource={visits}
       header={<div>Visits</div>}
       renderItem={(item) => (
         <List.Item>

@@ -5,6 +5,7 @@ import { Avatar, List } from 'antd';
 function AssigneeList({ assignees }) {
   return (
     <List
+      className="assignee-list"
       itemLayout="horizontal"
       header={<div>Assignees</div>}
       dataSource={assignees}

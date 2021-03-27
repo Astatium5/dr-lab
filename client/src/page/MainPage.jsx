@@ -41,6 +41,13 @@ const assignees = [
   },
 ];
 
+const visits = [
+  '12/25/21',
+  '12/25/21',
+  '12/25/21',
+  '12/25/21',
+];
+
 function MainPage() {
   return (
     <div>
@@ -58,8 +65,11 @@ function MainPage() {
       </SideBar>
       <div className="content">
         <PatientProgress status="waiting" />
-        <VisitList />
-        <AssigneeList assignees={assignees} />
+        <div className="content-container">
+          <VisitList visits={visits} />
+          <div className="photo-gallery">photos</div>
+          <AssigneeList assignees={assignees} />
+        </div>
       </div>
     </div>
   );

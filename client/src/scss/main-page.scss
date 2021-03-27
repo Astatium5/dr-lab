@@ -10,3 +10,21 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.content-container {
+  display: flex;
+  margin-top: 100px;
+  flex: 1;
+  justify-content: space-evenly;
+}
+
+.assignee-list, .visit-list {
+  min-width: 200px;
+}
+
+.photo-gallery {
+  width: 50%;
+  max-width: 680px;
+  min-width: 350px;
+  background-color: gray;
+}
