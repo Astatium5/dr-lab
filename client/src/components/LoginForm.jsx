@@ -1,5 +1,6 @@
 import React from 'react';
 import '../scss/landing.scss';
+import { useHistory } from 'react-router-dom';
 import {
   Button, Form, Input, Typography,
 } from 'antd';
@@ -7,8 +8,11 @@ import {
 const { Title, Paragraph } = Typography;
 
 function LoginForm() {
-  function login() {
+  const history = useHistory();
 
+  function login() {
+    // TODO Interface with API
+    history.push('/main');
   }
 
   return (
