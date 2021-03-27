@@ -1,0 +1,8 @@
+@import 'variables';
+
+.sidebar {
+  width: $sidebar-width;
+  background-color: darken(map-get($colors, 'primary'), 10%);
+  height: 100vh;
+  position: fixed;
+}

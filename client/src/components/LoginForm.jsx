@@ -26,12 +26,12 @@ function LoginForm() {
         onFinish={login}
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label="Email"
+          name="email"
           rules={[
             {
               required: true,
-              message: 'Please enter username',
+              message: 'Please enter email',
             },
           ]}
         >

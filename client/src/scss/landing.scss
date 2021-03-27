@@ -1,3 +1,5 @@
+@import 'variables';
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -18,7 +20,7 @@
   .btn-submit {
     margin-top: 16px;
     width: 100%;
-    background-color: hsl(210, 100%, 21%);
+    background-color: map-get($colors, 'primary');
     border: none;
   }
 }
