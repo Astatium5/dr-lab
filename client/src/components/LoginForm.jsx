@@ -1,15 +1,10 @@
 import React from 'react';
 import '../scss/landing.scss';
-import { Button, Form, Input } from 'antd';
+import {
+  Button, Form, Input, Typography,
+} from 'antd';
 
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
+const { Title } = Typography;
 
 function LoginForm() {
   function login() {
@@ -18,8 +13,8 @@ function LoginForm() {
 
   return (
     <div className="login-form">
+      <Title>Login</Title>
       <Form
-        layout={layout}
         name="Login Form"
         onFinish={login}
       >
