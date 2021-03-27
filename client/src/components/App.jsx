@@ -6,7 +6,9 @@ import image from '../assets/landing.svg';
 function App() {
   return (
     <div className="App">
-      <LoginForm />
+      <div className="landing-login">
+        <LoginForm />
+      </div>
       <div className="landing-image">
         <img src={image} alt="" />
       </div>
