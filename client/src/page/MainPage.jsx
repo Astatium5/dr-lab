@@ -12,19 +12,16 @@ const date = new Date().toLocaleDateString();
 const patients = [
   {
     name: 'Jill Smith',
-    location: 'Athens, GA',
     lastVisit: date,
     age: 32,
   },
   {
     name: 'Joe Schmuck',
-    location: 'Chicago, IL',
     lastVisit: date,
     age: 48,
   },
   {
     name: 'Billy Bob',
-    location: 'Miami, FL',
     lastVisit: date,
     age: 69,
   },

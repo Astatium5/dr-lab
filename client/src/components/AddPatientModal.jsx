@@ -24,37 +24,46 @@ function AddPatientModal({ visible, onConfirm, onCancel }) {
     >
       <Form layout="vertical" onFinish={addPatient} name="Add patient form">
         <Form.Item
-          required
           label="Patient Name"
-          rules={{
-            required: true,
-            message: 'Please enter a name',
-          }}
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter a name',
+            },
+          ]}
         >
           <Input placeholder="input placeholder" />
         </Form.Item>
         <Form.Item
-          required
           label="Patient Email"
-          rules={{
-            required: true,
-            message: 'Please enter an email',
-          }}
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter an email',
+            },
+          ]}
         >
           <Input placeholder="input placeholder" />
         </Form.Item>
         <Form.Item
-          required
           label="Patient Age"
-          rules={{
-            required: true,
-            message: 'Please enter an age',
-          }}
+          name="age"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter an age',
+            },
+          ]}
         >
           <Input placeholder="input placeholder" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button htmlType="submit" className="btn-cancel" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="primary" htmlType="submit" className="btn-submit">
             Submit
           </Button>
         </Form.Item>

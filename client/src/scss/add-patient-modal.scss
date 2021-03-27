@@ -1,0 +1,20 @@
+.add-patient-modal {
+
+  .ant-modal-body {
+    padding-bottom: 8px;
+  }
+
+  .ant-form-item-control-input-content {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-cancel {
+    margin-right: 8px;
+  }
+
+  .btn-submit,
+  .btn-cancel {
+    margin-top: 8px;
+  }
+}
