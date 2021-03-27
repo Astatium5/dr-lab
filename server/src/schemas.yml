@@ -1,0 +1,86 @@
+User:
+  description: A user object
+  type: object
+  properties:
+    first_name:
+      type: string
+      example: John
+    last_name: 
+      type: string
+      example: Brown
+    email:
+      type: string
+      format: email
+      required: true
+      example: new@example.com
+    password:
+      type: string
+      required: true
+      example:
+    specialty:
+      type: string
+      example: Plastic Surgeon
+    clinic:
+      $ref: '#/components/schemas/Clinic' 
+    patients:
+      type: array
+      description: An array of doctor's patients
+      items: 
+        $ref: '#/components/schemas/Patient'
+    assigned_patients:
+      type: array
+      description: An array of patients for doctor's review
+      items:
+        $ref: '#/components/schemas/Patient'
+Patient:
+  description: A patient object
+  type: object
+  properties:
+    first_name:
+      type: string
+      example: Melissa
+    last_name:
+      type: string
+      example: White
+    age:
+      type: number
+      example: 34
+    email:
+      type: string
+      example: example@gmail.com
+    visits:
+      type: array
+      items:
+        $ref: '#/components/schemas/Visit'
+Visit:
+  description: A visit object
+  type: object
+  properties:
+    photos:
+      type: array
+      items:
+        type: string
+        format: url
+    lab_results:
+      type:
+        $ref: '#/components/schemas/LabResults'
+    date_of_visit:
+      type: string
+      format: datetime
+    diagnosis: 
+      type: string
+      example: No cancer
+LabResults:
+  description: A lab results object
+  type: array
+Clinic:
+  description: A clinic object
+  type: object
+  properties:
+    name:
+      type: string
+      example: Best Clinic
+    address:
+      description: only city and state
+      type: string
+      example: Orlando FL

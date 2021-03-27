@@ -27,10 +27,6 @@ const Patient = {
 
     return res.status(201).send(patient);
   },
-
-  addVisit: async (req, res, next) => {
-
-  },
 };
 
 export default Patient;

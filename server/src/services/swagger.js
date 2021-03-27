@@ -1,8 +1,17 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 import yaml from 'js-yaml';
 import fs from 'fs';
+import logger from '../util';
 
 const specs = () => {
+  let schema;
+
+  try {
+    schema = yaml.load(fs.readFileSync('./src/schemas.yml', 'utf8'));
+  } catch (e) {
+    logger.error(e);
+  }
+
   const options = {
     definition: {
       openapi: '3.0.3',
@@ -21,9 +30,9 @@ const specs = () => {
           description: 'local server',
         },
       ],
-    //   components: {
-    //     schemas: schema,
-    //   },
+      components: {
+        schemas: schema,
+      },
     },
     schemes: ['http'],
     apis: ['./src/routes/*.js'],
