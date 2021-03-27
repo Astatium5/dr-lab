@@ -1,4 +1,6 @@
+import dotenv from 'dotenv';
+import express from 'express';
+
 (async function main() {
-    console.log("hello world");
+  const app = await intiWebServer();
 }());
-  
