@@ -5,4 +5,26 @@
   background-color: darken(map-get($colors, 'primary'), 10%);
   height: 100vh;
   position: fixed;
+  padding: 0 16px;
+  overflow-y: auto;
+
+  .heading {
+    margin: 0;
+    margin-top: 32px;
+    font-size: 16px;
+    color: lighten(map-get($colors, 'primary'), 75%);
+  }
+
+  hr {
+    border-color: lighten(map-get($colors, 'primary'), 75%);
+    margin-bottom: 16px;
+  }
+
+  .patient-card {
+    margin-bottom: 24px;
+
+    .ant-card-body {
+      padding-bottom: 0;
+    }
+  }
 }

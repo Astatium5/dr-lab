@@ -4,9 +4,9 @@ import { Card } from 'antd';
 
 import '../scss/main-page.scss';
 
-function PatientCard({ patient }) {
+function PatientCard({ patient, className }) {
   return (
-    <Card title={patient.name}>
+    <Card title={patient.name} className={className}>
       <h5>{patient.location}</h5>
       <h5>{patient.lastVisit}</h5>
       <div className="card-age-label">
@@ -23,6 +23,11 @@ PatientCard.propTypes = {
     lastVisit: PropTypes.string,
     age: PropTypes.number,
   }).isRequired,
+  className: PropTypes.string,
+};
+
+PatientCard.defaultProps = {
+  className: '',
 };
 
 export default PatientCard;
