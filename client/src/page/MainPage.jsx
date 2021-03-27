@@ -1,10 +1,12 @@
 import '../scss/main-page.scss';
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from 'antd';
 import SideBar from '../components/SideBar';
 import PatientCard from '../components/PatientCard';
 import PatientProgress from '../components/PatientProgress';
 import AssigneeList from '../components/AssigneeList';
 import VisitList from '../components/VisitList';
+import AddPatientModal from '../components/AddPatientModal';
 
 const date = new Date().toLocaleDateString();
 const patients = [
@@ -49,19 +51,29 @@ const visits = [
 ];
 
 function MainPage() {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => setModalVisible(true);
+  const closeModal = () => setModalVisible(false);
+
   return (
-    <div>
+    <div className="main-page">
       <SideBar>
-        <p className="heading">Your Patients</p>
-        <hr />
-        {patients.map((patient) => (
-          <PatientCard patient={patient} className="patient-card" />
-        ))}
-        <p className="heading">Assigned Patients</p>
-        <hr />
-        {patients.reverse().map((patient) => (
-          <PatientCard patient={patient} className="patient-card" />
-        ))}
+        <div className="sidebar-content">
+          <p className="heading">Your Patients</p>
+          <hr />
+          {patients.map((patient) => (
+            <PatientCard patient={patient} className="patient-card" />
+          ))}
+          <p className="heading">Requested Reviews</p>
+          <hr />
+          {patients.reverse().map((patient) => (
+            <PatientCard patient={patient} className="patient-card" />
+          ))}
+        </div>
+        <Button className="btn-add-patient" type="primary" onClick={openModal}>
+          Add Patient
+        </Button>
       </SideBar>
       <div className="content">
         <PatientProgress status="waiting" />
@@ -71,6 +83,11 @@ function MainPage() {
           <AssigneeList assignees={assignees} />
         </div>
       </div>
+      <AddPatientModal
+        visible={isModalVisible}
+        onCancel={closeModal}
+        onConfirm={closeModal}
+      />
     </div>
   );
 }

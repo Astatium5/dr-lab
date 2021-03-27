@@ -1,14 +1,31 @@
 @import 'variables';
 
-.content {
-  margin-left: $sidebar-width;
-  padding: 30px;
-  height: 300vh;
-}
+.main-page {
+  .content {
+    margin-left: $sidebar-width;
+    padding: 30px;
+    height: 300vh;
+  }
+  
+  .card-age-label {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .sidebar-content {
+    padding: 0 16px;
+    margin-bottom: calc(#{$add-patient-btn-height} + 16px);
+  }
 
-.card-age-label {
-  display: flex;
-  justify-content: flex-end;
+  .btn-add-patient {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: $add-patient-btn-height;
+    width: $sidebar-width;
+  }
 }
 
 .content-container {

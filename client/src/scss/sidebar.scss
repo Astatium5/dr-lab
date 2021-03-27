@@ -3,9 +3,8 @@
 .sidebar {
   width: $sidebar-width;
   background-color: darken(map-get($colors, 'primary'), 10%);
-  height: 100vh;
+  height: calc(100vh - #{$add-patient-btn-height});
   position: fixed;
-  padding: 0 16px;
   overflow-y: auto;
 
   .heading {
