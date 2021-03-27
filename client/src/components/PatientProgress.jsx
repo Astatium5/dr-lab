@@ -8,8 +8,6 @@ const progress = ['waiting', 'in-progress', 'finished'];
 
 // eslint-disable-next-line no-unused-vars
 function PatientProgress({ status }) {
-  console.log(progress.indexOf(status));
-
   return (
     <Steps progressDot current={progress.indexOf(status)}>
       <Step title="Waiting" description="Waiting for Medical Feedback." />
