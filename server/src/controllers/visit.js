@@ -18,9 +18,7 @@ const Visit = {
     const visitToDelete = await db.collection('visits').doc(id).get();
     if (!visitToDelete) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
 
-    visitToDelete.delete().then(() => {
-      return res.send();
-    });
+    visitToDelete.delete().then(() => res.send());
   },
 
   update: async (req, res, next) => {
