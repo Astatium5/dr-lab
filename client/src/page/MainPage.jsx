@@ -3,6 +3,8 @@ import React from 'react';
 import SideBar from '../components/SideBar';
 import PatientCard from '../components/PatientCard';
 import PatientProgress from '../components/PatientProgress';
+import AssigneeList from '../components/AssigneeList';
+import VisitList from '../components/VisitList';
 
 const date = new Date().toLocaleDateString();
 const patients = [
@@ -26,6 +28,19 @@ const patients = [
   },
 ];
 
+const assignees = [
+  {
+    name: 'John Jones',
+    imgURL: 'https://www.stockvault.net/data/2015/09/01/177580/preview16.jpg',
+    role: 'Cardiologist',
+  },
+  {
+    name: 'Ryan Baker',
+    imgURL: 'https://www.stockvault.net/data/2015/09/01/177580/preview16.jpg',
+    role: 'Gynecologist',
+  },
+];
+
 function MainPage() {
   return (
     <div>
@@ -43,6 +58,8 @@ function MainPage() {
       </SideBar>
       <div className="content">
         <PatientProgress status="waiting" />
+        <VisitList />
+        <AssigneeList assignees={assignees} />
       </div>
     </div>
   );
