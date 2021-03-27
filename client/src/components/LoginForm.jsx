@@ -14,7 +14,7 @@ function LoginForm() {
   return (
     <div className="login-form">
       <div className="form-logo">
-        <Title>Dr Lab</Title>
+        <Title>Dr. Lab</Title>
         <Paragraph>A modern review system for patient diagnostics.</Paragraph>
       </div>
       <Form
