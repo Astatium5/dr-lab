@@ -1,8 +1,10 @@
 import React from 'react';
 import '../scss/landing.scss';
 import {
-  Button, Form, Input,
+  Button, Form, Input, Typography,
 } from 'antd';
+
+const { Title, Paragraph } = Typography;
 
 function LoginForm() {
   function login() {
@@ -11,6 +13,10 @@ function LoginForm() {
 
   return (
     <div className="login-form">
+      <div className="form-logo">
+        <Title>Dr Lab</Title>
+        <Paragraph>A modern review system for patient diagnostics.</Paragraph>
+      </div>
       <Form
         name="Login Form"
         onFinish={login}
@@ -40,7 +46,7 @@ function LoginForm() {
           <Input.Password />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="Submit">
+          <Button type="primary" htmlType="Submit" className="btn-submit">
             Log In
           </Button>
         </Form.Item>
