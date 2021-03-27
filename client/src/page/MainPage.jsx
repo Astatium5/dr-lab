@@ -2,6 +2,7 @@ import '../scss/main-page.scss';
 import React from 'react';
 import SideBar from '../components/SideBar';
 import PatientCard from '../components/PatientCard';
+import PatientProgress from '../components/PatientProgress';
 
 const date = new Date().toLocaleDateString();
 const patients = [
@@ -40,7 +41,9 @@ function MainPage() {
           <PatientCard patient={patient} className="patient-card" />
         ))}
       </SideBar>
-      <div className="content">Hello World!</div>
+      <div className="content">
+        <PatientProgress status="waiting" />
+      </div>
     </div>
   );
 }
