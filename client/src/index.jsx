@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import App from './components/App';
-import MainPage from './components/MainPage';
+import App from './page/App';
+import MainPage from './page/MainPage';
 
 import 'antd/dist/antd.css';
 
@@ -18,7 +18,6 @@ ReactDOM.render(
         </Route>
       </Switch>
     </Router>
-    <App />
   </React.StrictMode>,
   document.getElementById('root'),
 );

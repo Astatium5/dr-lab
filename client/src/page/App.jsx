@@ -1,6 +1,6 @@
 import '../scss/App.scss';
 import React from 'react';
-import LoginForm from './LoginForm';
+import LoginForm from '../components/LoginForm';
 import image from '../assets/landing.svg';
 
 function App() {
