@@ -30,12 +30,20 @@ const User = {
     info = info.data();
 
     let patients = await db.collection('patients').where('ownerId', '==', email).get();
-    patients = patients.docs;
+
+    const oof = [];
+
+    for (let i = 0; i < patients.length; i++) {
+      const x = await patients.get(patient.path);
+      oof.push(x);
+    }
+
+    patients = oof;
 
     // patient = await patient.get(patient.path);
     // patient = patient.data();
 
-    patients.map((x) => x.ref);
+    // patients.map((x) => x.ref);
 
     // logger.info(patients);
 
@@ -43,7 +51,7 @@ const User = {
 
     return res.status(201).send(info);
   },
-
+  // works
   login: async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(404).send({ message: 'No email and/or password given.' });
@@ -59,15 +67,13 @@ const User = {
 
     return res.status(200).send(user);
   },
-
+  // not gonna use but works
   update: async (req, res) => {
     const { email, fieldsToUpdate } = req.body;
 
     if (!email) return res.status(404).send({ message: 'No email given.' });
 
-    let user = await db.collection('users').doc(email).get();
-
-    if (!user.exists) return res.status(404).send({ message: 'Email does not represent a valid user' });
+    let user = await db.collection('users').doc(email);
 
     user = await user.update(fieldsToUpdate);
 

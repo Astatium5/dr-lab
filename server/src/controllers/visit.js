@@ -6,6 +6,7 @@ import { db, bucket, ref } from '../services/firebase';
 import logger from '../util';
 
 const Visit = {
+  // works
   create: async (req, res) => {
     const { patientId } = req.body;
 
@@ -22,8 +23,8 @@ const Visit = {
   delete: async (req, res) => {
     const { id } = req.body;
 
-    const visitToDelete = await db.collection('visits').doc(id).get();
-    if (!visitToDelete.exist) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
+    const visitToDelete = await db.collection('visits').doc(id);
+    if (!visitToDelete.exists) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
 
     visitToDelete.delete().then(() => res.send());
   },
@@ -31,16 +32,17 @@ const Visit = {
   update: async (req, res) => {
     const { id, fieldsToUpdate } = req.body;
 
-    const visitToUpdate = await db.collection('visits').doc(id);
-    if (!visitToUpdate.exists) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
+    const visitToUpdate = db.collection('visits').doc(id);
 
     await visitToUpdate.update({ fieldsToUpdate });
 
-    const result = await db.collection('visits').doc(id).get().data();
+    let result = await db.collection('visits').doc(id).get();
+
+    result = result.data();
 
     return res.status(201).send(result);
   },
-
+  // works
   uploadPhotos: async (req, res) => {
     const photo = req.file.buffer;
     const { visitId } = req.params;
@@ -60,7 +62,7 @@ const Visit = {
 
     return res.send(url);
   },
-
+  // works
   getPhotos: async (req, res) => {
     const { visitId } = req.params;
 
