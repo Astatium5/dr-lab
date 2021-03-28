@@ -26,6 +26,10 @@
     height: $add-patient-btn-height;
     width: $sidebar-width;
   }
+
+  .patient-card {
+    cursor: pointer;
+  }
 }
 
 .content-container {
