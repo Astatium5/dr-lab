@@ -73,14 +73,31 @@ const User = {
     res.send({ patients });
   },
 
+  addAssignee: async (req, res) => {
+    const { email, patientId } = req.body;
+
+    const user = db.collection('users').doc(email);
+    user = user.data();
+    let assignees = [];
+
+    if (user.assignees) assignees = user.assignees;
+    assignees.push(patientId);
+
+    await db.collection('users').doc(email).update({ assignees });
+    let result = await db.collection('users').doc(email).get();
+
+    result = result.data();
+
+    return res.status(201).send(result);
+  },
+
   // works
   login: async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(404).send({ message: 'No email and/or password given.' });
 
-    let user = await db.collection('users').doc(email).get();
+    let user = await db.collection('users').doc(email);
 
-    if (!user.exists) return res.status(404).send({ message: 'User could not be found.' });
     if (!await hasher.validateHash(password, user.get('password'))) {
       return res.status(404).send({ message: 'The specified password is not correct.' });
     }
