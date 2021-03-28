@@ -18,7 +18,7 @@ const Patient = {
   },
 
   fetch: async (req, res, next) => {
-    const { id } = req.params;
+    const { id } = req.body;
 
     const patient = await db.collection('patients').doc(id).get();
     if (!patient) {
