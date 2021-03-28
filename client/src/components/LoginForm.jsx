@@ -31,10 +31,12 @@ function LoginForm({ switchCard }) {
       return response.json();
     })
       .then((json) => {
+        // eslint-disable-next-line no-param-reassign
+        json.ownerId = values.email;
         localStorage.setItem('user', JSON.stringify(json));
         history.push('/main');
       })
-      .catch(() => setError('An unknown error unknown.'));
+      .catch(() => setError('An unknown error occurred.'));
   }
 
   return (
