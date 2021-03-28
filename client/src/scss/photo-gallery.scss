@@ -25,9 +25,9 @@
     column-gap: 16px;
   }
 
-  .image-container {
+  .patient-image {
     width: $image-size;
     height: $image-size;
-    background-color: grey;
+    object-fit: cover;
   }
 }
