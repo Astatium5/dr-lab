@@ -20,7 +20,7 @@ const Visit = {
     const { id } = req.body;
 
     const visitToDelete = await db.collection('visits').doc(id).get();
-    if (!visitToDelete) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
+    if (!visitToDelete.exist) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
 
     visitToDelete.delete().then(() => res.send());
   },
@@ -29,7 +29,7 @@ const Visit = {
     const { id, fieldsToUpdate } = req.body;
 
     const visitToUpdate = await db.collection('visits').doc(id);
-    if (!visitToUpdate) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
+    if (!visitToUpdate.exists) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
 
     await visitToUpdate.update({ fieldsToUpdate });
 
@@ -39,19 +39,14 @@ const Visit = {
   },
 
   uploadPhotos: async (req, res) => {
-    const { visitId } = req.body;
-    const { photos } = req.files;
-    if (!photos) return res.send({ message: 'Nothing to upload' });
-    if (!visitId) return res.send({ message: 'No visit id given' });
+    const { photo } = req.file.buffer;
+    logger.info(req);
+    // if (!photos) return res.send({ message: 'Nothing to upload' });
+    // if (!visitId) return res.send({ message: 'No visit id given' });
 
-    const options = {
-      destination: 'image.png',
-    };
-
-    photos.forEach((photo) => {
-      bucket.upload(photo, options, (err, file) => {
-        logger.info(`Updloaded image ${file.name}`);
-      });
+    bucket.save(photo, (err, file) => {
+      logger.info(`Uploaded image ${file.name}`);
+      res.send();
     });
   },
 };
