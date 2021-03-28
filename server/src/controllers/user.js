@@ -96,7 +96,7 @@ const User = {
     const { email, password } = req.body;
     if (!email || !password) return res.status(404).send({ message: 'No email and/or password given.' });
 
-    let user = await db.collection('users').doc(email);
+    let user = await db.collection('users').doc(email).get();
 
     if (!await hasher.validateHash(password, user.get('password'))) {
       return res.status(404).send({ message: 'The specified password is not correct.' });
