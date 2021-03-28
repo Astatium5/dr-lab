@@ -16,7 +16,7 @@ visit.post('/', controller.create);
 visit.delete('/', controller.delete);
 visit.put('/', controller.update);
 
-visit.put('/photos/:visitId', upload.single('photo'), controller.uploadPhotos);
+visit.post('/photos/:visitId', upload.single('photo'), controller.uploadPhotos);
 visit.get('/photos/:visitId', controller.getPhotos);
 
 export default visit;

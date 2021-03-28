@@ -22,6 +22,7 @@ const User = {
     return res.status(201).send(addedUser);
   },
 
+  // OUTDATED
   fetch: async (req, res) => {
     const { email } = req.body;
 
@@ -51,6 +52,24 @@ const User = {
 
     return res.status(201).send(info);
   },
+
+  getPatients: async (req, res) => {
+    const { email } = req.body;
+
+    const querySnapshot = await db.collection('patients').where('ownerId', '==', email).get();
+
+    const { docs } = querySnapshot;
+    const patients = [];
+
+    for (let i = 0; i < docs.length; i++) {
+      let x = await docs[i].ref.get();
+      x = x.data();
+      patients.push(x);
+    }
+
+    res.send({ patients });
+  },
+
   // works
   login: async (req, res) => {
     const { email, password } = req.body;
