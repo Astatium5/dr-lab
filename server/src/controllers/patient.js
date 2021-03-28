@@ -3,7 +3,7 @@ import { db } from '../services/firebase';
 const Patient = {
   create: async (req, res) => {
     const {
-      firstName, lastName, age, email, ownerId,
+      firstName, lastName, age, email, lastVisit, ownerId,
     } = req.body;
 
     const patient = await db.collection('patients').add({
@@ -12,6 +12,7 @@ const Patient = {
       age,
       email,
       ownerId,
+      lastVisit,
       visits: [],
     });
 
