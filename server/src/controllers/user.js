@@ -3,7 +3,7 @@ import hasher from '../services/PasswordHasher';
 import logger from '../util';
 
 const User = {
-  register: async (req, res, next) => {
+  register: async (req, res) => {
     const {
       email, firstName, lastName, specialty, clinic,
     } = req.body;
@@ -22,7 +22,7 @@ const User = {
     return res.status(201).send(addedUser);
   },
 
-  login: async (req, res, next) => {
+  login: async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(404).send({ message: 'No email and/or password given.' });
 
@@ -36,7 +36,7 @@ const User = {
     return res.status(200).send(user);
   },
 
-  update: async (req, res, next) => {
+  update: async (req, res) => {
     const { email, fieldsToUpdate } = req.body;
 
     if (!email) return res.status(404).send({ message: 'No email given.' });
