@@ -24,7 +24,11 @@ function AssigneeList({ assignees }) {
         renderItem={(assignee) => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar src={assignee.imgURL} />}
+              avatar={(
+                <Avatar>
+                  <span className="avatar-initial">{assignee.name[0]}</span>
+                </Avatar>
+)}
               title={assignee.name}
               description={assignee.role}
             />
