@@ -1,22 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../scss/landing.scss';
 import { useHistory } from 'react-router-dom';
 import {
-  Button, Form, Input, Typography,
+  Alert,
+  Button, Form, Input, Typography, Space,
 } from 'antd';
+import PropTypes from 'prop-types';
 
 const { Title, Paragraph } = Typography;
 
-function LoginForm() {
+function LoginForm({ switchCard }) {
   const history = useHistory();
 
-  function login() {
-    // TODO Interface with API
-    history.push('/main');
+  const [error, setError] = useState(null);
+
+  function login(values) {
+    const payload = JSON.stringify(values);
+
+    window.fetch('/users/', {
+      method: 'POST',
+      body: payload,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error('Could not login');
+      }
+
+      history.push('/main');
+      return response.json();
+    })
+      .then((json) => localStorage.setItem('user', JSON.stringify(json)))
+      .catch(() => setError('An unknown error unknown.'));
   }
 
   return (
     <div className="login-form">
+      {
+        error ? (
+          <Alert
+            message="Error Occurred"
+            description={error}
+            type="error"
+            action={(
+              <Space>
+                <Button size="small" type="ghost" />
+              </Space>
+          )}
+            closable
+          />
+        ) : <></>
+      }
       <div className="form-logo">
         <Title>Dr. Lab</Title>
         <Paragraph>A modern review system for patient diagnostics.</Paragraph>
@@ -39,7 +74,7 @@ function LoginForm() {
         </Form.Item>
         <Form.Item
           label="Password"
-          name="Password"
+          name="password"
           rules={[
             {
               required: true,
@@ -55,8 +90,15 @@ function LoginForm() {
           </Button>
         </Form.Item>
       </Form>
+      <Button type="primary" htmlType="Submit" onClick={() => switchCard('register')}>
+        Register
+      </Button>
     </div>
   );
 }
+
+LoginForm.propTypes = {
+  switchCard: PropTypes.func.isRequired,
+};
 
 export default LoginForm;
