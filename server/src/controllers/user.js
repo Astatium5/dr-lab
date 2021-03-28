@@ -28,7 +28,7 @@ const User = {
     const user = await db.collection('users').doc(email).get();
 
     if (!user) return res.status(404).send({ message: 'User could not be found.' });
-    if (!hasher.validateHash(password, user.password)) {
+    if (!await hasher.validateHash(password, user.password)) {
       return res.status(404).send({ message: 'The specified password is not correct.' });
     }
 
