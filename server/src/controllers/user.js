@@ -6,13 +6,13 @@ import logger from '../util';
 const User = {
   register: async (req, res) => {
     const {
-      email, firstName, lastName, specialty, clinic,
+      email, firstName, lastName, clinic,
     } = req.body;
 
     const password = await hasher.hash(req.body.password);
 
     await db.collection('users').doc(email).set({
-      password, firstName, lastName, specialty, clinic,
+      password, firstName, lastName, clinic,
     });
 
     let addedUser = await db.collection('users').doc(email).get();
