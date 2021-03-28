@@ -55,20 +55,18 @@ const User = {
   },
 
   sendEmail: async (req, res) => {
-    logger.info(req.body);
     const DOMAIN = process.env.API_BASE_URL;
     const mg = mailgun({ apiKey: process.env.API_KEY, domain: DOMAIN });
     const text = `Diagnosis:\n${req.body.diagnosis}Kind regards,\n${req.body.doctorName}`;
 
     const data = {
-      from: `${req.body.clinicName} <user@sandbox216e1790260143ebb09a0146d8969c15.mailgun.org>`,
-      to: `${req.body.patientEmail}, YOU@YOUR_DOMAIN_NAME`,
+      from: `${req.body.clinicName} <user@${DOMAIN}>`,
+      to: `${req.body.patientEmail}, user@${DOMAIN}`,
       subject: `Doctor's appointment on ${req.body.visitDate}`,
       text,
     };
 
     mg.messages().send(data, (error, body) => {
-      logger.info(error);
       logger.info(body);
 
       if (error) {
