@@ -34,16 +34,16 @@ const Visit = {
     const visitToUpdate = await db.collection('visits').doc(id);
     if (!visitToUpdate) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
 
-    await visitToUpdate.update({ visit: fieldsToUpdate });
+    await visitToUpdate.update({ fieldsToUpdate });
 
-    let result = await db.collection('visits').doc(id).get();
-    result = result.data();
+    const result = await db.collection('visits').doc(id).get().data();
 
     return res.status(201).send(result);
   },
 
   uploadPhotos: async (req, res) => {
-    const { photos, visitId } = req.body;
+    const { visitId } = req.body;
+    const { photos } = req.files;
     if (!photos) return res.send({ message: 'Nothing to upload' });
     if (!visitId) return res.send({ message: 'No visit id given' });
 

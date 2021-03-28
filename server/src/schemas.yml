@@ -16,7 +16,7 @@ User:
     password:
       type: string
       required: true
-      example:
+      example: new_crazy_password
     specialty:
       type: string
       example: Plastic Surgeon
@@ -84,3 +84,19 @@ Clinic:
       description: only city and state
       type: string
       example: Orlando FL
+Email:
+  description: An object for sending an email
+  type: object
+  properties:
+    diagnosis:
+      type: string
+      example: No cancer
+    doctorName:
+      type: string
+      example: John Brown
+    clinicName:
+      type: string
+      example: Best Clinic
+    visitDate:
+      type: string
+      format: datetime

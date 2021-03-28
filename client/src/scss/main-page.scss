@@ -1,0 +1,63 @@
+@import 'variables';
+
+.main-page {
+  .content {
+    margin-left: $sidebar-width;
+    padding: 30px;
+    height: 300vh;
+  }
+
+  .card-age-label {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .sidebar-content {
+    padding: 0 16px;
+    margin-bottom: calc(#{$add-patient-btn-height} + 16px);
+  }
+
+  .btn-add-patient {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: $add-patient-btn-height;
+    width: $sidebar-width;
+  }
+
+  .patient-card {
+    cursor: pointer;
+  }
+}
+
+.content-container {
+  display: flex;
+  margin-top: 100px;
+  flex: 1;
+  justify-content: space-evenly;
+}
+
+.assignee-list, .visit-list {
+  min-width: 200px;
+}
+
+.title-header {
+  margin-left: 10px;
+  margin-bottom: 0 !important;
+}
+
+.container-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+
+  .avatar {
+    background-color: map-get($colors, 'primary');
+  }
+
+  .avatar-initial {
+    font-size: 24px;
+  }
+}

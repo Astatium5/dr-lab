@@ -1,0 +1,28 @@
+@import 'variables';
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: row-reverse;
+
+  .landing-login,
+  .landing-image {
+    flex: 1;
+  }
+
+  .landing-image {
+    background-color: map-get($colors, 'primary');
+  }
+
+  .landing-login > div {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    padding: 0 20px;
+  }
+}

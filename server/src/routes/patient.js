@@ -43,7 +43,7 @@ patient.post('/', controller.create);
 /**
  * @swagger
  * path:
- * /groups/:
+ * /groups/{id}:
  *    get:
  *      description: Get an existing patient
  *      summary: Gets a patient
