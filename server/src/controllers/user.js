@@ -21,6 +21,17 @@ const User = {
     return res.status(201).send(addedUser);
   },
 
+  fetch: async (req, res) => {
+    const { email } = req.body;
+
+    let info = await db.collection('users').doc(email).get();
+    info = info.data();
+
+    const patients = await db.collection('patients').where('ownwerId', '==', email).get();
+
+    return res.status(201).send(info);
+  },
+
   login: async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(404).send({ message: 'No email and/or password given.' });
@@ -55,19 +66,23 @@ const User = {
   },
 
   sendEmail: async (req, res) => {
-    const DOMAIN = 'doctor-lab.herokuapp.com';
+    const DOMAIN = process.env.API_BASE_URL;
     const mg = mailgun({ apiKey: process.env.API_KEY, domain: DOMAIN });
     const text = `Diagnosis:\n${req.body.diagnosis}Kind regards,\n${req.body.doctorName}`;
 
     const data = {
-      from: `${req.body.clinicName} <dima@knighthacks.org>`,
-      to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
+      from: `${req.body.clinicName} <user@${DOMAIN}>`,
+      to: `${req.body.patientEmail}, user@${DOMAIN}`,
       subject: `Doctor's appointment on ${req.body.visitDate}`,
       text,
     };
 
     mg.messages().send(data, (error, body) => {
-      logger.info(error, body);
+      logger.info(body);
+
+      if (error) {
+        res.status(500).send({error});
+      }
     });
 
     return res.status(200).send({ status: 'successful' });
