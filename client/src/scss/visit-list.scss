@@ -1,9 +1,5 @@
 @import 'variables';
 
-.ant-list-header > div {
-  font-weight: bold;
-}
-
 .visit-list {
   .ant-list-item {
     transition: background-color 0.2s ease-in-out;
@@ -20,6 +16,10 @@
     margin-top: 8px;
     width: 100%;
   }
+
+  .ant-list-header > div {
+    font-weight: bold;
+  }  
 }
 
 .date-modal { 
