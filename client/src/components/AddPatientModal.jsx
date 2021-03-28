@@ -17,10 +17,11 @@ function AddPatientModal({ visible, onConfirm, onCancel }) {
 
     const payload = JSON.stringify({
       firstName,
-      lastName,
+      lastName: lastName || '',
       email: values.email,
       age: values.age,
       ownerId: user.ownerId,
+      lastVisit: new Date().toLocaleDateString(),
     });
 
     window
