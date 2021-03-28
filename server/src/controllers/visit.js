@@ -43,7 +43,8 @@ const Visit = {
   },
 
   uploadPhotos: async (req, res) => {
-    const { photos, visitId } = req.body;
+    const { visitId } = req.body;
+    const { photos } = req.files;
     if (!photos) return res.send({ message: 'Nothing to upload' });
     if (!visitId) return res.send({ message: 'No visit id given' });
   },
