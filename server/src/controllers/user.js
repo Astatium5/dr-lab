@@ -1,5 +1,6 @@
 import db from '../services/firebase';
 import hasher from '../services/PasswordHasher';
+import logger from '../util';
 
 const User = {
   register: async (req, res, next) => {
@@ -10,11 +11,13 @@ const User = {
     const password = hasher.hash(req.body.password);
 
     const uniqueCheck = await db.collection('users').doc(email).get();
-    if (uniqueCheck) return res.status(404).send({ message: 'Account with this email already exists.' });
+    if (typeof uniqueCheck === 'undefined') return res.status(404).send({ message: 'Account with this email already exists.' });
 
-    const addedUser = await db.collection('users').doc(email).set({
+    await db.collection('users').doc(email).set({
       password, firstName, lastName, specialty, clinic,
     });
+
+    const addedUser = db.collection('users').doc(email).get();
 
     return res.status(201).send(addedUser);
   },

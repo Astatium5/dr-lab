@@ -29,6 +29,10 @@ const specs = () => {
           url: 'http://localhost:5000/',
           description: 'local server',
         },
+        {
+          url: 'https://doctor-lab.herokuapp.com/',
+          description: 'production server',
+        },
       ],
       components: {
         schemas: schema,
