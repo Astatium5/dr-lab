@@ -1,3 +1,4 @@
+/* eslint-disable */
 import '../scss/comments.scss';
 import React, { useState } from 'react';
 import {
@@ -31,10 +32,11 @@ function CommentList({ comments }) {
         <Comment
         // eslint-disable-next-line react/jsx-props-no-spreading
           {...props}
+          author={props.email}
           avatar={
             (
               <Avatar className="avatar">
-                <span>X</span>
+                <span>{props.email[0]}</span>
               </Avatar>
             )
           }
@@ -67,8 +69,11 @@ function Editor({
   );
 }
 
-function Comments({ comments }) {
+function Comments({ comments, onCommentAdded }) {
+  const user = JSON.parse(localStorage.getItem('user'));
+
   const [commentValue, setCommentValue] = useState('');
+  const [wasCalled, setCalled] = useState(false);
 
   // TODO: THIS IS FOR TESTING
   const [commentsObj, setComments] = useState(comments);
@@ -76,16 +81,20 @@ function Comments({ comments }) {
 
   const submitComment = (comment) => {
     // TODO
-    console.log({ comment });
+    setCalled(true);
     setCommentValue('');
 
     // TODO: THIS IS FOR TESTING
     setComments((prevState) => (
       [...prevState, {
-        author: 'jsmith@example.com',
+        email: user.ownerId,
         content: comment,
       }]
     ));
+
+    if (!wasCalled) {
+      onCommentAdded();
+    }
   };
 
   return (
@@ -95,7 +104,7 @@ function Comments({ comments }) {
         avatar={
           (
             <Avatar className="avatar">
-              <span>X</span>
+              <span>{user.firstName[0]}</span>
             </Avatar>
           )
         }
@@ -117,7 +126,7 @@ function Comments({ comments }) {
 CommentList.propTypes = {
   comments: PropTypes.arrayOf(
     PropTypes.shape({
-      author: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
     }),
   ).isRequired,
