@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import router from '../routes/index';
 import specs from './swagger';
@@ -11,6 +12,7 @@ const initWebServer = async () => {
 
   app.use(
     express.json(),
+    cors(),
     router,
   );
 
