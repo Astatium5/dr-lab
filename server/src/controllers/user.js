@@ -5,6 +5,7 @@ import hasher from '../services/PasswordHasher';
 import logger from '../util';
 
 const User = {
+  //
   register: async (req, res) => {
     const {
       email, firstName, lastName, clinic,
@@ -52,7 +53,7 @@ const User = {
 
     return res.status(201).send(info);
   },
-
+  // works
   getPatients: async (req, res) => {
     const { email } = req.body;
 

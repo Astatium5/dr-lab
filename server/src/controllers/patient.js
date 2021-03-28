@@ -23,12 +23,25 @@ const Patient = {
   fetch: async (req, res) => {
     const { id } = req.params;
 
-    const patient = await db.collection('patients').doc(id).get();
-    if (!patient) {
-      return res.status(404);
+    let patient = await db.collection('patients').doc(id).get();
+    patient = patient.data();
+
+    const querySnapshot = await db.collection('visits').where('patientId', '==', id).get();
+
+    const { docs } = querySnapshot;
+    const visits = [];
+
+    for (let i = 0; i < docs.length; i++) {
+      let x = await docs[i].ref.get();
+      x = x.data();
+      visits.push(x);
     }
 
-    return res.status(201).send(patient);
+    delete patient.visits;
+
+    patient.visits = visits;
+
+    return res.status(201).send({ patient });
   },
 };
 
