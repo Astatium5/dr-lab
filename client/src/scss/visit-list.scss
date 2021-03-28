@@ -1,0 +1,33 @@
+@import 'variables';
+
+.ant-list-header > div {
+  font-weight: bold;
+}
+
+.visit-list {
+  .ant-list-item {
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    padding-left: 8px;
+    padding-right: 8px;
+  
+    &:hover {
+      background-color: lighten(map-get($colors, 'primary'), 70%);
+    }
+  }
+
+  .btn-add {
+    margin-top: 8px;
+    width: 100%;
+  }
+}
+
+.date-modal { 
+  .ant-modal-header {
+    border-bottom: none;
+  }
+
+  .ant-modal-footer {
+    border-top: none;
+  }
+}

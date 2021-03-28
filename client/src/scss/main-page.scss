@@ -26,6 +26,10 @@
     height: $add-patient-btn-height;
     width: $sidebar-width;
   }
+
+  .patient-card {
+    cursor: pointer;
+  }
 }
 
 .content-container {
@@ -37,13 +41,6 @@
 
 .assignee-list, .visit-list {
   min-width: 200px;
-}
-
-.photo-gallery {
-  width: 50%;
-  max-width: 680px;
-  min-width: 350px;
-  background-color: gray;
 }
 
 .title-header {
