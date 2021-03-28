@@ -49,8 +49,8 @@ const Visit = {
     };
 
     photos.forEach((photo) => {
-      bucket.upload(photo, options, () => {
-
+      bucket.upload(photo, options, (err, file) => {
+        logger.info(`Updloaded image ${file.name}`);
       });
     });
   },
