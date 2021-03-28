@@ -31,7 +31,10 @@ function VisitList({ visits }) {
         onOk={closeModal}
         onCancel={closeModal}
       >
-        <Calendar fullscreen={false} onChange={(moment) => console.log(moment.format('l'))} />
+        <Calendar
+          fullscreen={false}
+          onChange={(moment) => console.log(moment.format('l'))}
+        />
       </Modal>
     </div>
   );
