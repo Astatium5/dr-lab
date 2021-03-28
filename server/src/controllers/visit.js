@@ -34,16 +34,9 @@ const Visit = {
     const visitToUpdate = await db.collection('visits').doc(id);
     if (!visitToUpdate) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
 
-<<<<<<< HEAD
     await visitToUpdate.update({ fieldsToUpdate });
 
     const result = await db.collection('visits').doc(id).get().data();
-=======
-    await visitToUpdate.update({ visit: fieldsToUpdate });
-
-    let result = await db.collection('visits').doc(id).get();
-    result = result.data();
->>>>>>> e941cff5bcb1986e5cbe54cb61f00f2e445754cf
 
     return res.status(201).send(result);
   },
