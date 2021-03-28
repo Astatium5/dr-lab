@@ -76,8 +76,10 @@ function MainPage() {
       </SideBar>
       <div className="content">
         <div className="container-header">
-          <Avatar size={64} src="" />
-          <Title className="title-header">First Name</Title>
+          <Avatar size={64} src="" className="avatar">
+            <span className="avatar-initial">{patients[0].name[0]}</span>
+          </Avatar>
+          <Title className="title-header">{patients[0].name}</Title>
         </div>
 
         <PatientProgress status="waiting" />

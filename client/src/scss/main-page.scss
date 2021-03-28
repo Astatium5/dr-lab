@@ -55,4 +55,12 @@
   display: flex;
   align-items: center;
   margin-bottom: 50px;
+
+  .avatar {
+    background-color: map-get($colors, 'primary');
+  }
+
+  .avatar-initial {
+    font-size: 24px;
+  }
 }
