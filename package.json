@@ -1,0 +1,20 @@
+{
+  "name": "hackathon-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd server && node ./build/index.js",
+    "heroku-postbuild": "npm install --production=false --prefix ./server && npm run build --prefix ./server && cd client && npm install --production=false && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HooHacks-2021-UCF-Team/hackathon-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HooHacks-2021-UCF-Team/hackathon-project/issues"
+  },
+  "homepage": "https://github.com/HooHacks-2021-UCF-Team/hackathon-project#readme"
+}
