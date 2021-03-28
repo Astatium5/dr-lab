@@ -5,6 +5,7 @@ import {
   Tooltip,
   Upload,
   Image,
+  Empty,
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
@@ -33,11 +34,23 @@ function PhotoGallery({ imageList }) {
           </Upload>
         </Tooltip>
       </div>
-      <div className="grid">
-        {imageList.map((src) => (
-          <Image className="image-container" src={src} fallback={placeholderImage} />
-        ))}
-      </div>
+      {imageList.length === 0 ? (
+        <Empty
+          description={
+          (<span>Not images to show.</span>)
+        }
+        />
+      ) : (
+        <div className="grid">
+          {imageList.map((src) => (
+            <Image
+              className="image-container"
+              src={src}
+              fallback={placeholderImage}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
