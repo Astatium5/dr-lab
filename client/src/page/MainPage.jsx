@@ -57,9 +57,13 @@ function MainPage() {
   const [isModalVisible, setModalVisible] = useState(false);
   const [patients, setPatients] = useState([]);
   const [currentPatient, setPatient] = useState(null);
+  const [status, setStatus] = useState('waiting');
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
+  const updateStep = () => {
+    setStatus('in-progress');
+  };
 
   const userID = JSON.parse(localStorage.user).ownerId;
 
@@ -123,14 +127,14 @@ function MainPage() {
           </Title>
         </div>
 
-        <PatientProgress status="waiting" />
+        <PatientProgress status={status} />
         <div className="content-container">
           <VisitList
             patientId={(currentPatient && currentPatient.id) || ''}
           />
           <div>
             <PhotoGallery visitID="test" />
-            <Comments comments={comments} />
+            <Comments comments={comments} onCommentAdded={updateStep} />
           </div>
           <AssigneeList assignees={assignees} />
         </div>
