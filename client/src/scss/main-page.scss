@@ -6,12 +6,12 @@
     padding: 30px;
     height: 300vh;
   }
-  
+
   .card-age-label {
     display: flex;
     justify-content: flex-end;
   }
-  
+
   .sidebar-content {
     padding: 0 16px;
     margin-bottom: calc(#{$add-patient-btn-height} + 16px);
@@ -44,4 +44,15 @@
   max-width: 680px;
   min-width: 350px;
   background-color: gray;
+}
+
+.title-header {
+  margin-left: 10px;
+  margin-bottom: 0 !important;
+}
+
+.container-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
 }

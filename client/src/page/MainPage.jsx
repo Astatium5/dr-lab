@@ -1,12 +1,14 @@
 import '../scss/main-page.scss';
 import React, { useState } from 'react';
-import { Button } from 'antd';
+import { Avatar, Button, Typography } from 'antd';
 import SideBar from '../components/SideBar';
 import PatientCard from '../components/PatientCard';
 import PatientProgress from '../components/PatientProgress';
 import AssigneeList from '../components/AssigneeList';
 import VisitList from '../components/VisitList';
 import AddPatientModal from '../components/AddPatientModal';
+
+const { Title } = Typography;
 
 const date = new Date().toLocaleDateString();
 const patients = [
@@ -73,6 +75,11 @@ function MainPage() {
         </Button>
       </SideBar>
       <div className="content">
+        <div className="container-header">
+          <Avatar src="" />
+          <Title className="title-header">First Name</Title>
+        </div>
+
         <PatientProgress status="waiting" />
         <div className="content-container">
           <VisitList visits={visits} />
