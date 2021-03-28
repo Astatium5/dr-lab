@@ -15,6 +15,6 @@ const upload = multer({ storage: multer.memoryStorage() });
 visit.post('/', controller.create);
 visit.delete('/', controller.delete);
 visit.put('/', controller.update);
-visit.put('/upload', upload.array('photos'), controller.uploadPhotos);
+visit.put('/upload', upload.single('photo'), controller.uploadPhotos);
 
 export default visit;

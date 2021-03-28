@@ -39,19 +39,17 @@ const Visit = {
   },
 
   uploadPhotos: async (req, res) => {
-    const { visitId } = req.body;
-    const { photos } = req.files;
-    if (!photos) return res.send({ message: 'Nothing to upload' });
-    if (!visitId) return res.send({ message: 'No visit id given' });
+    const { photo } = await req.file.buffer;
+    logger.info(req);
+    // if (!photos) return res.send({ message: 'Nothing to upload' });
+    // if (!visitId) return res.send({ message: 'No visit id given' });
 
     const options = {
       destination: 'image.png',
     };
 
-    photos.forEach((photo) => {
-      bucket.upload(photo, options, (err, file) => {
-        logger.info(`Updloaded image ${file.name}`);
-      });
+    bucket.upload(photo, options, (err, file) => {
+      logger.info(`Updloaded image ${file.name}`);
     });
   },
 };
