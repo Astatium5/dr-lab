@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.use('/users/', userRouter);
 router.use('/patients/', patientRouter);
-// router.use('/visits/', visitsRouter);
+router.use('/visits/', visitsRouter);
 
 export default router;

@@ -11,6 +11,6 @@ import controller from '../controllers/visit';
 const visit = express.Router();
 
 visit.post('/', controller.create);
-visit.delete('/', controller.);
+visit.delete('/', controller.delete);
 
 export default visit;
