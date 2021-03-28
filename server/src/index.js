@@ -1,4 +1,10 @@
+import initWebServer from './services/webServer';
+import logger from './util';
+
 (async function main() {
-    console.log("hello world");
+  const app = await initWebServer();
+  const port = 3000;
+  app.listen(port);
+
+  logger.info(`Server running on ${port}!`);
 }());
-  
