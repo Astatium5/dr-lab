@@ -44,7 +44,7 @@ const assignees = [
   },
 ];
 
-const visits = ['12/25/21', '12/25/21', '12/25/21', '12/25/21'];
+// const visits = ['12/25/21', '12/25/21', '12/25/21', '12/25/21'];
 
 const comments = [
   // {
@@ -68,13 +68,14 @@ function MainPage() {
       email: userID,
     });
 
-    window.fetch('/users/getPatients', {
-      method: 'POST',
-      body: payload,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    window
+      .fetch('/users/getPatients', {
+        method: 'POST',
+        body: payload,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       .then((response) => response.json())
       .then((patientRes) => {
         console.log(patientRes);
@@ -90,12 +91,20 @@ function MainPage() {
           <p className="heading">Your Patients</p>
           <hr />
           {patients.map((patient) => (
-            <PatientCard setPatient={setPatient} patient={patient} className="patient-card" />
+            <PatientCard
+              setPatient={setPatient}
+              patient={patient}
+              className="patient-card"
+            />
           ))}
           <p className="heading">Requested Reviews</p>
           <hr />
           {patients.reverse().map((patient) => (
-            <PatientCard setPatient={setPatient} patient={patient} className="patient-card" />
+            <PatientCard
+              setPatient={setPatient}
+              patient={patient}
+              className="patient-card"
+            />
           ))}
         </div>
         <Button className="btn-add-patient" type="primary" onClick={openModal}>
@@ -106,21 +115,19 @@ function MainPage() {
         <div className="container-header">
           <Avatar size={64} src="" className="avatar">
             <span className="avatar-initial">
-              {
-              currentPatient ? currentPatient.firstName[0] : 'Loading..'
-            }
+              {currentPatient ? currentPatient.firstName[0] : 'Loading..'}
             </span>
           </Avatar>
           <Title className="title-header">
-            {
-            currentPatient ? currentPatient.firstName : 'Loading..'
-          }
+            {currentPatient ? currentPatient.firstName : 'Loading..'}
           </Title>
         </div>
 
         <PatientProgress status="waiting" />
         <div className="content-container">
-          <VisitList visits={visits} />
+          <VisitList
+            patientId={(currentPatient && currentPatient.id) || ''}
+          />
           <div>
             <PhotoGallery visitID="test" />
             <Comments comments={comments} />
