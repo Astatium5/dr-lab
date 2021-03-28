@@ -1,5 +1,5 @@
 import '../scss/photo-gallery.scss';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Tooltip,
@@ -11,11 +11,35 @@ import { PlusOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import placeholderImage from '../assets/dummy-image.jpg';
 
-function PhotoGallery({ imageList }) {
-  const uploadImage = (event) => {
-    // TODO
-    console.log(event);
+function PhotoGallery({ visitID }) {
+  const [imageList, setImages] = useState([]);
+
+  const uploadImage = (value) => {
+    const formData = new FormData();
+    console.log(value.file);
+    formData.set('photo', value.file);
+    formData.set('body', '');
+    console.log(value.file.name);
+    window.fetch(`/visits/photos/${visitID}`, {
+      method: 'PUT',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((url) => {
+        imageList.push(url);
+        setImages(imageList);
+      });
   };
+
+  useEffect(() => {
+    console.log('got here');
+    window.fetch(`/visits/photos/${visitID}`)
+      .then((response) => response.json())
+      .then((url) => {
+        console.log(url);
+        setImages(url);
+      });
+  }, []);
 
   return (
     <div className="photo-gallery">
@@ -23,7 +47,7 @@ function PhotoGallery({ imageList }) {
         <h1>Patient Photos</h1>
         <Tooltip placement="top" title="Add photo">
           <Upload
-            action="/"
+            action={`/visits/photos/${visitID}`}
             onChange={uploadImage}
             fileList={null}
             accept="image/png, image/jpeg, image/jpg"
@@ -56,11 +80,7 @@ function PhotoGallery({ imageList }) {
 }
 
 PhotoGallery.propTypes = {
-  imageList: PropTypes.arrayOf(PropTypes.string),
-};
-
-PhotoGallery.defaultProps = {
-  imageList: [],
+  visitID: PropTypes.string.isRequired,
 };
 
 export default PhotoGallery;

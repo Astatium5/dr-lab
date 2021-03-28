@@ -90,7 +90,7 @@ function MainPage() {
         <div className="content-container">
           <VisitList visits={visits} />
           <div>
-            <PhotoGallery imageList={['', '', '', '', '']} />
+            <PhotoGallery visitID="test" />
             <Comments comments={comments} />
           </div>
           <AssigneeList assignees={assignees} />

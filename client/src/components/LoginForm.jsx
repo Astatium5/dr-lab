@@ -17,7 +17,7 @@ function LoginForm({ switchCard }) {
   function login(values) {
     const payload = JSON.stringify(values);
 
-    window.fetch('/users/', {
+    window.fetch('/users/login', {
       method: 'POST',
       body: payload,
       headers: {
