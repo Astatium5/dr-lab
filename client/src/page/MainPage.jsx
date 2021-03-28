@@ -7,6 +7,7 @@ import PatientProgress from '../components/PatientProgress';
 import AssigneeList from '../components/AssigneeList';
 import VisitList from '../components/VisitList';
 import AddPatientModal from '../components/AddPatientModal';
+import PhotoGallery from '../components/PhotoGallery';
 
 const { Title } = Typography;
 
@@ -85,7 +86,7 @@ function MainPage() {
         <PatientProgress status="waiting" />
         <div className="content-container">
           <VisitList visits={visits} />
-          <div className="photo-gallery">photos</div>
+          <PhotoGallery imageList={['', '', '']} />
           <AssigneeList assignees={assignees} />
         </div>
       </div>
