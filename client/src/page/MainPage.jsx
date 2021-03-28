@@ -67,7 +67,7 @@ function MainPage() {
 
   const userID = JSON.parse(localStorage.user).ownerId;
 
-  useEffect(() => {
+  const getAllPatients = () => {
     const payload = JSON.stringify({
       email: userID,
     });
@@ -86,6 +86,10 @@ function MainPage() {
         setPatient(patientRes.patients[0]);
         setPatients(patientRes.patients);
       });
+  };
+
+  useEffect(() => {
+    getAllPatients();
   }, []);
 
   return (
@@ -143,6 +147,7 @@ function MainPage() {
         visible={isModalVisible}
         onCancel={closeModal}
         onConfirm={closeModal}
+        onPatientAdded={getAllPatients}
       />
     </div>
   );

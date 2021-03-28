@@ -32,6 +32,7 @@ function CommentList({ comments }) {
         <Comment
         // eslint-disable-next-line react/jsx-props-no-spreading
           {...props}
+          author={props.email}
           avatar={
             (
               <Avatar className="avatar">
