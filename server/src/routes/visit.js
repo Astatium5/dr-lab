@@ -12,5 +12,6 @@ const visit = express.Router();
 
 visit.post('/', controller.create);
 visit.delete('/', controller.delete);
+visit.put('/', controller.update);
 
 export default visit;
