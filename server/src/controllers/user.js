@@ -25,12 +25,14 @@ const User = {
     const { email, password } = req.body;
     if (!email || !password) return res.status(404).send({ message: 'No email and/or password given.' });
 
-    const user = await db.collection('users').doc(email).get();
+    let user = await db.collection('users').doc(email).get();
 
-    if (!user) return res.status(404).send({ message: 'User could not be found.' });
-    if (!await hasher.validateHash(password, user.password)) {
+    if (!user.exists) return res.status(404).send({ message: 'User could not be found.' });
+    if (!await hasher.validateHash(password, user.get('password'))) {
       return res.status(404).send({ message: 'The specified password is not correct.' });
     }
+
+    user = user.data();
 
     return res.status(200).send(user);
   },
@@ -41,10 +43,12 @@ const User = {
     if (!email) return res.status(404).send({ message: 'No email given.' });
 
     let user = await db.collection('users').doc(email).get();
-    if (!user) return res.status(404).send({ message: 'Email does not represent a valid user' });
+    if (!user.exists) return res.status(404).send({ message: 'Email does not represent a valid user' });
 
-    user = user.update(fieldsToUpdate);
+    user = await user.update(fieldsToUpdate);
 
+    user = await db.collection('users').doc(email).get();
+    user = user.data();
     return res.status(200).send(user);
   },
 
