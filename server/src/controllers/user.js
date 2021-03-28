@@ -63,8 +63,10 @@ const User = {
     const patients = [];
 
     for (let i = 0; i < docs.length; i++) {
+      const { id } = docs[i].ref;
       let x = await docs[i].ref.get();
       x = x.data();
+      x.id = id;
       patients.push(x);
     }
 
