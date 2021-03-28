@@ -8,9 +8,9 @@ import logger from '../util';
 const Visit = {
   // works
   create: async (req, res) => {
-    const { patientId } = req.body;
+    const { patientId, date } = req.body;
 
-    let addedVisitId = await db.collection('visits').add({ patientId });
+    let addedVisitId = await db.collection('visits').add({ patientId, date });
     [, addedVisitId] = addedVisitId._path.segments;
 
     let addedVisit = await db.collection('visits').doc(addedVisitId).get();
@@ -82,6 +82,28 @@ const Visit = {
     }
 
     res.send(urls);
+  },
+
+  addComment: async (req, res) => {
+    const { id } = req.params;
+    const commentToAdd = req.body.comment;
+    const commenterEmail = req.body.email;
+
+    const docRef = await db.collection('visits').doc(id);
+
+    const querySnapshot = await docRef.get();
+    let data = [];
+    data = querySnapshot.data().comments || [];
+    let comments = [];
+    comments = [{ commentToAdd, commenterEmail }, ...data];
+
+    await docRef.update({ comments });
+    res.send();
+  },
+
+  getComments: async (req, res) => {
+    const { id } = req.params;
+    res.send();
   },
 };
 
