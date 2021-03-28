@@ -1,5 +1,6 @@
+/* eslint-disable */
 import '../scss/visit-list.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   List,
@@ -10,6 +11,18 @@ import {
 
 function VisitList({ visits }) {
   const [isModalVisible, setModalVisible] = useState(false);
+
+  // eslint-disable-next-line no-unused-vars
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  console.log(user);
+
+  // useEffect(() => {
+  //   // eslint-disable-next-line no-unused-vars
+  //   const user = JSON.parse(localStorage.getItem('user'));
+
+  //   console.log(user);
+  // }, []);
 
   const closeModal = () => setModalVisible(false);
   const openModal = () => setModalVisible(true);

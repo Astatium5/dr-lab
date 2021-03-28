@@ -28,10 +28,12 @@ function LoginForm({ switchCard }) {
         throw new Error('Could not login');
       }
 
-      history.push('/main');
       return response.json();
     })
-      .then((json) => localStorage.setItem('user', JSON.stringify(json)))
+      .then((json) => {
+        localStorage.setItem('user', JSON.stringify(json));
+        history.push('/main');
+      })
       .catch(() => setError('An unknown error unknown.'));
   }
 
