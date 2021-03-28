@@ -50,6 +50,15 @@ patient.post('/', controller.create);
  *      tags:
  *        - Patient
  *
+ *      requestBody:
+ *        description:
+ *        required: true
+ *
+ *        content:
+ *          application/json:
+ *            schema:
+ *              
+ *
  *      produces:
  *        - application/json
  *      responses:
