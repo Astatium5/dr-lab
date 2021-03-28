@@ -46,6 +46,16 @@ const Visit = {
     const { photos, visitId } = req.body;
     if (!photos) return res.send({ message: 'Nothing to upload' });
     if (!visitId) return res.send({ message: 'No visit id given' });
+
+    const options = {
+      destination: 'image.png',
+    };
+
+    photos.forEach((photo) => {
+      bucket.upload(photo, options, () => {
+
+      });
+    });
   },
 };
 

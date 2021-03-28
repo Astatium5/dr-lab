@@ -1,4 +1,5 @@
-import db from '../services/firebase';
+import mailgun from 'mailgun-js';
+import { db } from '../services/firebase';
 import hasher from '../services/PasswordHasher';
 import logger from '../util';
 
@@ -8,16 +9,17 @@ const User = {
       email, firstName, lastName, specialty, clinic,
     } = req.body;
 
-    const password = hasher.hash(req.body.password);
+    const password = await hasher.hash(req.body.password);
 
-    const uniqueCheck = await db.collection('users').doc(email).get();
-    if (typeof uniqueCheck === 'undefined') return res.status(404).send({ message: 'Account with this email already exists.' });
+    // const uniqueCheck = await db.collection('users').doc(email).get();
+    // if (typeof uniqueCheck !== 'undefined') return res.status(404).send({ message: 'Account with this email already exists.' });
 
     await db.collection('users').doc(email).set({
       password, firstName, lastName, specialty, clinic,
     });
 
-    const addedUser = db.collection('users').doc(email).get();
+    let addedUser = await db.collection('users').doc(email).get();
+    addedUser = addedUser.data();
 
     return res.status(201).send(addedUser);
   },
