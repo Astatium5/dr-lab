@@ -76,7 +76,7 @@ function MainPage() {
       </SideBar>
       <div className="content">
         <div className="container-header">
-          <Avatar src="" />
+          <Avatar size={64} src="" />
           <Title className="title-header">First Name</Title>
         </div>
 
