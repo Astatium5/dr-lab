@@ -83,7 +83,7 @@ const Visit = {
 
     res.send(urls);
   },
-
+  // works
   addComment: async (req, res) => {
     const { id } = req.params;
     const commentToAdd = req.body.comment;
@@ -95,15 +95,21 @@ const Visit = {
     let data = [];
     data = querySnapshot.data().comments || [];
     let comments = [];
-    comments = [{ commentToAdd, commenterEmail }, ...data];
+    comments = [{ comment: commentToAdd, email: commenterEmail }, ...data];
 
     await docRef.update({ comments });
     res.send();
   },
-
+  // works
   getComments: async (req, res) => {
     const { id } = req.params;
-    res.send();
+
+    const docRef = await db.collection('visits').doc(id);
+
+    const querySnapshot = await docRef.get();
+    const comments = querySnapshot.data().comments || [];
+
+    res.send({ comments });
   },
 };
 
