@@ -61,7 +61,7 @@ function PhotoGallery({ visitID }) {
         <div className="grid">
           {imageList.map((src) => (
             <Image
-              className="image-container"
+              className="patient-image"
               src={src}
               fallback={placeholderImage}
             />
