@@ -1,0 +1,22 @@
+.assignee-list {
+  .btn-add-assignee {
+    margin-top: 8px;
+    width: 100%;
+  }
+}
+
+.assignee-modal { 
+  .ant-modal-header {
+    border-bottom: none;
+  }
+
+  .ant-modal-footer {
+    border-top: none;
+    padding-bottom: 16px;
+  }
+
+  .input-title {
+    margin-left: 4px;
+    margin-bottom: 6px;
+  }
+}

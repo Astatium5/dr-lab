@@ -8,6 +8,7 @@ import AssigneeList from '../components/AssigneeList';
 import VisitList from '../components/VisitList';
 import AddPatientModal from '../components/AddPatientModal';
 import PhotoGallery from '../components/PhotoGallery';
+import Comments from '../components/Comments';
 
 const { Title } = Typography;
 
@@ -43,11 +44,13 @@ const assignees = [
   },
 ];
 
-const visits = [
-  '12/25/21',
-  '12/25/21',
-  '12/25/21',
-  '12/25/21',
+const visits = ['12/25/21', '12/25/21', '12/25/21', '12/25/21'];
+
+const comments = [
+  // {
+  //   author: 'jsmith@example.org',
+  //   content: "Well, actually, I think it's literally cancer LMAO",
+  // },
 ];
 
 function MainPage() {
@@ -86,7 +89,10 @@ function MainPage() {
         <PatientProgress status="waiting" />
         <div className="content-container">
           <VisitList visits={visits} />
-          <PhotoGallery imageList={['', '', '']} />
+          <div>
+            <PhotoGallery imageList={['', '', '', '', '']} />
+            <Comments comments={comments} />
+          </div>
           <AssigneeList assignees={assignees} />
         </div>
       </div>
