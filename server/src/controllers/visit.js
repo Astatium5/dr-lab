@@ -1,15 +1,15 @@
 /* eslint-disable no-underscore-dangle */
-import db from '../services/firebase';
+import { db, bucket } from '../services/firebase';
 import logger from '../util';
 
 const Visit = {
   create: async (req, res) => {
-    const { patientId, visit } = req.body;
+    const { patientId } = req.body;
 
-    const patient = await db.collection('patient').doc(patientId).get();
-    if (!patient) return res.status(404).send({ message: `Patient with id ${patientId} could not be found.` });
+    // const patient = await db.collection('patients').where('id', '==', patientId).get();
+    // if (typeof patient === 'undefined') return res.status(404).send({ message: `Patient with id ${patientId} could not be found.` });
 
-    let addedVisitId = await db.collection('visits').add({ visit });
+    let addedVisitId = await db.collection('visits').add({ patientId });
     [, addedVisitId] = addedVisitId._path.segments;
 
     let addedVisit = await db.collection('visits').doc(addedVisitId).get();
@@ -34,9 +34,18 @@ const Visit = {
     const visitToUpdate = await db.collection('visits').doc(id);
     if (!visitToUpdate) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
 
-    const result = visitToUpdate.update({ fieldsToUpdate });
+    await visitToUpdate.update({ visit: fieldsToUpdate });
+
+    let result = await db.collection('visits').doc(id).get();
+    result = result.data();
 
     return res.status(201).send(result);
+  },
+
+  uploadPhotos: async (req, res) => {
+    const { photos, visitId } = req.body;
+    if (!photos) return res.send({ message: 'Nothing to upload' });
+    if (!visitId) return res.send({ message: 'No visit id given' });
   },
 };
 
