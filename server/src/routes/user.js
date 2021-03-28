@@ -101,7 +101,7 @@ user.post('/login', controller.login);
  *        application/json:
  *          schema:
  *            $ref: '/#/components/schemas/User'
- *       
+ *
  *
  */
 user.put('/', controller.update);
@@ -123,7 +123,7 @@ user.put('/', controller.update);
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Email'
- * 
+ *
  *      produces:
  *        - application/json
  *      responses:
@@ -134,11 +134,11 @@ user.put('/', controller.update);
  *              schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: string
  */
 user.post('/email', controller.sendEmail);
 
-user.post('/', controller.fetch);
+user.post('/getPatients', controller.getPatients);
 
 export default user;

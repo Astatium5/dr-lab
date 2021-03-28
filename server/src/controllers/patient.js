@@ -15,7 +15,9 @@ const Patient = {
       visits: [],
     });
 
-    return res.status(201).send(patient);
+    const { id } = patient;
+
+    return res.status(201).send({ id });
   },
 
   fetch: async (req, res) => {

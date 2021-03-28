@@ -1,4 +1,5 @@
 import mailgun from 'mailgun-js';
+import patient from '../routes/patient';
 import { db } from '../services/firebase';
 import hasher from '../services/PasswordHasher';
 import logger from '../util';
@@ -21,17 +22,55 @@ const User = {
     return res.status(201).send(addedUser);
   },
 
+  // OUTDATED
   fetch: async (req, res) => {
     const { email } = req.body;
 
     let info = await db.collection('users').doc(email).get();
+
     info = info.data();
 
-    const patients = await db.collection('patients').where('ownwerId', '==', email).get();
+    let patients = await db.collection('patients').where('ownerId', '==', email).get();
+
+    const oof = [];
+
+    for (let i = 0; i < patients.length; i++) {
+      const x = await patients.get(patient.path);
+      oof.push(x);
+    }
+
+    patients = oof;
+
+    // patient = await patient.get(patient.path);
+    // patient = patient.data();
+
+    // patients.map((x) => x.ref);
+
+    // logger.info(patients);
+
+    info.patients = patients;
 
     return res.status(201).send(info);
   },
 
+  getPatients: async (req, res) => {
+    const { email } = req.body;
+
+    const querySnapshot = await db.collection('patients').where('ownerId', '==', email).get();
+
+    const { docs } = querySnapshot;
+    const patients = [];
+
+    for (let i = 0; i < docs.length; i++) {
+      let x = await docs[i].ref.get();
+      x = x.data();
+      patients.push(x);
+    }
+
+    res.send({ patients });
+  },
+
+  // works
   login: async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(404).send({ message: 'No email and/or password given.' });
@@ -47,15 +86,13 @@ const User = {
 
     return res.status(200).send(user);
   },
-
+  // not gonna use but works
   update: async (req, res) => {
     const { email, fieldsToUpdate } = req.body;
 
     if (!email) return res.status(404).send({ message: 'No email given.' });
 
-    let user = await db.collection('users').doc(email).get();
-
-    if (!user.exists) return res.status(404).send({ message: 'Email does not represent a valid user' });
+    let user = await db.collection('users').doc(email);
 
     user = await user.update(fieldsToUpdate);
 
@@ -81,7 +118,7 @@ const User = {
       logger.info(body);
 
       if (error) {
-        res.status(500).send({error});
+        res.status(500).send({ error });
       }
     });
 
