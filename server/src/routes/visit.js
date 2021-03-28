@@ -19,4 +19,7 @@ visit.put('/', controller.update);
 visit.post('/photos/:visitId', upload.single('photo'), controller.uploadPhotos);
 visit.get('/photos/:visitId', controller.getPhotos);
 
+visit.get('/comments/:id', controller.getComments);
+visit.put('/comments/:id', controller.addComment);
+
 export default visit;
