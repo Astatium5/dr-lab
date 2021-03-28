@@ -94,6 +94,9 @@ Email:
     doctorName:
       type: string
       example: John Brown
+    patientEmail:
+      type: string
+      example: d.golubenko@knights.ucf.edu
     clinicName:
       type: string
       example: Best Clinic

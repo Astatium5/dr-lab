@@ -1,5 +1,8 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
-import { db, bucket } from '../services/firebase';
+import { v4 as uuidv4 } from 'uuid';
+import { db, bucket, ref } from '../services/firebase';
 import logger from '../util';
 
 const Visit = {
@@ -39,15 +42,44 @@ const Visit = {
   },
 
   uploadPhotos: async (req, res) => {
-    const { photo } = req.file.buffer;
-    logger.info(req);
-    // if (!photos) return res.send({ message: 'Nothing to upload' });
-    // if (!visitId) return res.send({ message: 'No visit id given' });
+    const photo = req.file.buffer;
+    const { visitId } = req.params;
 
-    bucket.save(photo, (err, file) => {
-      logger.info(`Uploaded image ${file.name}`);
-      res.send();
-    });
+    const rand = uuidv4();
+
+    const config = {
+      action: 'read',
+      expires: '03-17-2025',
+    };
+
+    const file = bucket.file(`visits/${visitId}/${rand}.png`);
+
+    await file.save(photo);
+
+    const url = await file.getSignedUrl(config);
+
+    return res.send(url);
+  },
+
+  getPhotos: async (req, res) => {
+    const { visitId } = req.params;
+
+    const config = {
+      action: 'read',
+      expires: '03-17-2025',
+    };
+
+    let files = await bucket.getFiles({ prefix: `visits/${visitId}/` });
+    [files] = files;
+
+    const urls = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const x = await files[i].getSignedUrl(config);
+      urls.push(x[0]);
+    }
+
+    res.send(urls);
   },
 };
 
