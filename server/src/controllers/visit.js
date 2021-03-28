@@ -31,7 +31,7 @@ const Visit = {
   update: async (req, res) => {
     const { id, fieldsToUpdate } = req.body;
 
-    const visitToUpdate = await db.collection('visits').doc(id).get();
+    const visitToUpdate = await db.collection('visits').doc(id);
     if (!visitToUpdate) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
 
     const result = visitToUpdate.update({ fieldsToUpdate });

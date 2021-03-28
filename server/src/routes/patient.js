@@ -57,7 +57,7 @@ patient.post('/', controller.create);
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Patient'
+ *              
  *
  *      produces:
  *        - application/json
