@@ -33,7 +33,7 @@ function PhotoGallery({ visitID }) {
               formData.append('photo', options.file);
 
               window.fetch(`/visits/photos/${visitID}`, {
-                method: 'PUT',
+                method: 'POST',
                 body: formData,
               })
                 .then((response) => response.json())
