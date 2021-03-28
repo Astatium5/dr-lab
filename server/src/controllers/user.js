@@ -1,4 +1,5 @@
 import mailgun from 'mailgun-js';
+import patient from '../routes/patient';
 import { db } from '../services/firebase';
 import hasher from '../services/PasswordHasher';
 import logger from '../util';
@@ -25,9 +26,20 @@ const User = {
     const { email } = req.body;
 
     let info = await db.collection('users').doc(email).get();
+
     info = info.data();
 
-    const patients = await db.collection('patients').where('ownwerId', '==', email).get();
+    let patients = await db.collection('patients').where('ownerId', '==', email).get();
+    patients = patients.docs;
+
+    // patient = await patient.get(patient.path);
+    // patient = patient.data();
+
+    patients.map((x) => x.ref);
+
+    // logger.info(patients);
+
+    info.patients = patients;
 
     return res.status(201).send(info);
   },
@@ -81,7 +93,7 @@ const User = {
       logger.info(body);
 
       if (error) {
-        res.status(500).send({error});
+        res.status(500).send({ error });
       }
     });
 
