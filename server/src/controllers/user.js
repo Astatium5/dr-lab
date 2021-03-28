@@ -11,9 +11,6 @@ const User = {
 
     const password = await hasher.hash(req.body.password);
 
-    // const uniqueCheck = await db.collection('users').doc(email).get();
-    // if (typeof uniqueCheck !== 'undefined') return res.status(404).send({ message: 'Account with this email already exists.' });
-
     await db.collection('users').doc(email).set({
       password, firstName, lastName, specialty, clinic,
     });
