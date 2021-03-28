@@ -6,9 +6,6 @@ const Visit = {
   create: async (req, res) => {
     const { patientId } = req.body;
 
-    // const patient = await db.collection('patients').where('id', '==', patientId).get();
-    // if (typeof patient === 'undefined') return res.status(404).send({ message: `Patient with id ${patientId} could not be found.` });
-
     let addedVisitId = await db.collection('visits').add({ patientId });
     [, addedVisitId] = addedVisitId._path.segments;
 
@@ -52,8 +49,8 @@ const Visit = {
     };
 
     photos.forEach((photo) => {
-      bucket.upload(photo, options, () => {
-
+      bucket.upload(photo, options, (err, file) => {
+        logger.info(`Updloaded image ${file.name}`);
       });
     });
   },
