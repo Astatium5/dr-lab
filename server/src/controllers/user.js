@@ -21,6 +21,17 @@ const User = {
     return res.status(201).send(addedUser);
   },
 
+  fetch: async (req, res) => {
+    const { email } = req.body;
+
+    let info = await db.collection('users').doc(email).get();
+    info = info.data();
+
+    const patients = await db.collection('patients').where('ownwerId', '==', email).get();
+
+    return res.status(201).send(info);
+  },
+
   login: async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(404).send({ message: 'No email and/or password given.' });

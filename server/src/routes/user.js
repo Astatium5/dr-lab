@@ -82,7 +82,7 @@ user.post('/register', controller.register);
  *                $ref: '#/components/schemas/User'
  *
  */
-user.post('/', controller.login);
+user.post('/login', controller.login);
 
 /**
  * @swagger
@@ -138,5 +138,7 @@ user.put('/', controller.update);
  *                    type: string
  */
 user.post('/email', controller.sendEmail);
+
+user.post('/', controller.fetch);
 
 export default user;
