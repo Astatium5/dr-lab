@@ -4,9 +4,11 @@ import { Card } from 'antd';
 
 import '../scss/main-page.scss';
 
-function PatientCard({ patient, className }) {
+/* eslint-disable */
+
+function PatientCard({ patient, className, setPatient }) {
   return (
-    <Card title={patient.name} className={className}>
+    <Card title={patient.firstName} className={className} onClick={() => setPatient(patient)}>
       <h5>
         Last Visit:
         {' '}

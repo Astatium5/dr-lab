@@ -1,0 +1,9 @@
+@import 'variables';
+
+.comments {
+  margin-top: 64px;
+
+  .avatar {
+    background-color: map-get($colors, 'primary');
+  }
+}

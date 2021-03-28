@@ -1,20 +1,26 @@
 import '../scss/photo-gallery.scss';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Tooltip,
   Upload,
   Image,
+  Empty,
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import placeholderImage from '../assets/dummy-image.jpg';
 
-function PhotoGallery({ imageList }) {
-  const uploadImage = (event) => {
-    // TODO
-    console.log(event);
-  };
+function PhotoGallery({ visitID }) {
+  const [imageList, setImages] = useState([]);
+
+  useEffect(() => {
+    window.fetch(`/visits/photos/${visitID}`)
+      .then((response) => response.json())
+      .then((url) => {
+        setImages(url);
+      });
+  }, []);
 
   return (
     <div className="photo-gallery">
@@ -22,8 +28,20 @@ function PhotoGallery({ imageList }) {
         <h1>Patient Photos</h1>
         <Tooltip placement="top" title="Add photo">
           <Upload
-            action="/"
-            onChange={uploadImage}
+            customRequest={(options) => {
+              const formData = new FormData();
+              formData.append('photo', options.file);
+
+              window.fetch(`/visits/photos/${visitID}`, {
+                method: 'PUT',
+                body: formData,
+              })
+                .then((response) => response.json())
+                .then((url) => {
+                  imageList.push(url);
+                  setImages(imageList);
+                });
+            }}
             fileList={null}
             accept="image/png, image/jpeg, image/jpg"
           >
@@ -33,21 +51,29 @@ function PhotoGallery({ imageList }) {
           </Upload>
         </Tooltip>
       </div>
-      <div className="grid">
-        {imageList.map((src) => (
-          <Image className="image-container" src={src} fallback={placeholderImage} />
-        ))}
-      </div>
+      {imageList.length === 0 ? (
+        <Empty
+          description={
+          (<span>Not images to show.</span>)
+        }
+        />
+      ) : (
+        <div className="grid">
+          {imageList.map((src) => (
+            <Image
+              className="patient-image"
+              src={src}
+              fallback={placeholderImage}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
 PhotoGallery.propTypes = {
-  imageList: PropTypes.arrayOf(PropTypes.string),
-};
-
-PhotoGallery.defaultProps = {
-  imageList: [],
+  visitID: PropTypes.string.isRequired,
 };
 
 export default PhotoGallery;

@@ -1,7 +1,6 @@
 .photo-gallery {
   $image-size: 180px;
 
-  width: 50%;
   max-width: 680px;
   min-width: 350px;
 
@@ -23,11 +22,12 @@
     display: grid;
     grid-template-columns: repeat(3, 3fr);
     row-gap: 16px;
+    column-gap: 16px;
   }
 
-  .image-container {
+  .patient-image {
     width: $image-size;
     height: $image-size;
-    background-color: grey;
+    object-fit: cover;
   }
 }
