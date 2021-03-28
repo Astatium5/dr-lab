@@ -57,7 +57,7 @@ patient.post('/', controller.create);
  *        content:
  *          application/json:
  *            schema:
- *              
+ *
  *
  *      produces:
  *        - application/json
@@ -69,7 +69,7 @@ patient.post('/', controller.create);
  *              schema:
  *                $ref: '#/components/schemas/Patient'
  */
-patient.get('/', controller.fetch);
+patient.get('/:id', controller.fetch);
 
 // patient.post('/:id/add', controller.addVisit);
 
