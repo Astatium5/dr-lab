@@ -9,7 +9,12 @@ import {
   notification,
 } from 'antd';
 
-function AddPatientModal({ visible, onConfirm, onCancel }) {
+function AddPatientModal({
+  visible,
+  onConfirm,
+  onCancel,
+  onPatientAdded,
+}) {
   const user = JSON.parse(localStorage.getItem('user'));
 
   const addPatient = (values) => {
@@ -38,6 +43,7 @@ function AddPatientModal({ visible, onConfirm, onCancel }) {
           message: 'Successfully added patient',
         });
         onConfirm();
+        onPatientAdded();
       })
       .catch(() => {
         notification.error({
@@ -110,6 +116,7 @@ AddPatientModal.propTypes = {
   visible: PropTypes.bool.isRequired,
   onConfirm: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  onPatientAdded: PropTypes.func.isRequired,
 };
 
 export default AddPatientModal;
