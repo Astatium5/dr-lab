@@ -1,31 +1,32 @@
 /* eslint-disable */
 import '../scss/visit-list.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   List,
   Button,
   Modal,
   Calendar,
+  notification,
 } from 'antd';
 
 function VisitList({ visits }) {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [date, setDate] = useState('');
 
-  // eslint-disable-next-line no-unused-vars
   const user = JSON.parse(localStorage.getItem('user'));
-
-  console.log(user);
-
-  // useEffect(() => {
-  //   // eslint-disable-next-line no-unused-vars
-  //   const user = JSON.parse(localStorage.getItem('user'));
-
-  //   console.log(user);
-  // }, []);
 
   const closeModal = () => setModalVisible(false);
   const openModal = () => setModalVisible(true);
+  const addVisit = () => {
+    // window.fetch('/users/', {
+    //   method: 'POST',
+    //   body: payload,
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+  };
 
   return (
     <div className="visit-list">
@@ -41,12 +42,12 @@ function VisitList({ visits }) {
         className="date-modal"
         title="Choose Visit Date"
         visible={isModalVisible}
-        onOk={closeModal}
+        onOk={addVisit}
         onCancel={closeModal}
       >
         <Calendar
           fullscreen={false}
-          onChange={(moment) => console.log(moment.format('l'))}
+          onChange={(moment) => setDate(moment.format('l'))}
         />
       </Modal>
     </div>

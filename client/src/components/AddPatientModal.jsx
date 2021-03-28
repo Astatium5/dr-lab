@@ -6,12 +6,45 @@ import {
   Input,
   Form,
   Button,
+  notification,
 } from 'antd';
 
 function AddPatientModal({ visible, onConfirm, onCancel }) {
-  const addPatient = () => {
-    // TODO
-    onConfirm();
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  const addPatient = (values) => {
+    const [firstName, lastName] = values.name.split(' ');
+
+    const payload = JSON.stringify({
+      firstName,
+      lastName,
+      email: values.email,
+      age: values.age,
+      ownerId: user.ownerId,
+    });
+
+    window
+      .fetch('/patients/', {
+        method: 'POST',
+        body: payload,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((res) => res.json())
+      .then(() => {
+        notification.success({
+          message: 'Successfully added patient',
+        });
+        onConfirm();
+      })
+      .catch(() => {
+        notification.error({
+          message: 'Error adding patient',
+          description:
+            'An error occurred while adding this patient. Check your connection and try again',
+        });
+      });
   };
 
   return (
