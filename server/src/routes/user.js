@@ -141,4 +141,6 @@ user.post('/email', controller.sendEmail);
 
 user.post('/getPatients', controller.getPatients);
 
+user.post('/assignees', controller.addAssignee);
+
 export default user;
