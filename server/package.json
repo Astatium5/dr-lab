@@ -22,6 +22,7 @@
     "firebase-tools": "^9.8.0",
     "gitduck": "^0.0.9",
     "js-yaml": "^3.14.1",
+    "mailgun-js": "^0.22.0",
     "nodemon": "^2.0.7",
     "pino": "^6.11.2",
     "swagger-jsdoc": "^6.1.0",

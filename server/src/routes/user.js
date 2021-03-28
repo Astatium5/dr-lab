@@ -10,7 +10,78 @@ import controller from '../controllers/user';
 
 const user = express.Router();
 
+/**
+ * @swagger
+ * path:
+ * /user/register:
+ *   post:
+ *      description: Registers a new user.
+ *      summary: Registers a user.
+ *      tags:
+ *        - User
+ *
+ *      requestBody:
+ *        description:
+ *        required: true
+ *
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        201:
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *
+ */
 user.post('/register', controller.register);
+
+/**
+ * @swagger
+ * path:
+ * /user/:
+ *   post:
+ *      description: Logs in an existing user.
+ *      summary: Logs in a user.
+ *      tags:
+ *        - User
+ *
+ *      requestBody:
+ *        description: Only email and password
+ *        required: true
+ *
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                  email:
+ *                      type: string
+ *                      format: email
+ *                      required: true
+ *                      example: new@example.com
+ *                  password:
+ *                      type: string
+ *                      required: true
+ *                      example: new_crazy_password
+ *
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        201:
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *
+ */
 user.post('/', controller.login);
 
 /**
@@ -33,5 +104,7 @@ user.post('/', controller.login);
  *
  */
 user.put('/', controller.update);
+
+user.post('/email', controller.sendEmail);
 
 export default user;

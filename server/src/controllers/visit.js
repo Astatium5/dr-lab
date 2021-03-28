@@ -6,8 +6,8 @@ const Visit = {
   create: async (req, res) => {
     const { patientId, visit } = req.body;
 
-    const patient = await db.collection('patient').doc(patientId).get();
-    if (!patient) return res.status(404).send({ message: `Patient with id ${patientId} could not be found.` });
+    const patient = await db.collection('patients').doc(patientId).get();
+    if (typeof patient === 'undefined') return res.status(404).send({ message: `Patient with id ${patientId} could not be found.` });
 
     let addedVisitId = await db.collection('visits').add({ visit });
     [, addedVisitId] = addedVisitId._path.segments;
@@ -34,7 +34,9 @@ const Visit = {
     const visitToUpdate = await db.collection('visits').doc(id);
     if (!visitToUpdate) return res.status(404).send({ message: `Visit with id ${id} could not be found.` });
 
-    const result = visitToUpdate.update({ fieldsToUpdate });
+    await visitToUpdate.update({ fieldsToUpdate });
+
+    const result = await db.collection('visits').doc(id).get().data();
 
     return res.status(201).send(result);
   },
