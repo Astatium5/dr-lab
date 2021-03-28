@@ -13,7 +13,7 @@ const user = express.Router();
 /**
  * @swagger
  * path:
- * /user/register:
+ * /users/register:
  *   post:
  *      description: Registers a new user.
  *      summary: Registers a user.
@@ -45,7 +45,7 @@ user.post('/register', controller.register);
 /**
  * @swagger
  * path:
- * /user/:
+ * /users/:
  *   post:
  *      description: Logs in an existing user.
  *      summary: Logs in a user.
@@ -87,8 +87,8 @@ user.post('/', controller.login);
 /**
  * @swagger
  * path:
- * users:
- *   put:
+ * /users/:
+ *    put:
  *      description: Updates an existing user.
  *      summary: Updates a user.
  *      tags:
@@ -97,14 +97,46 @@ user.post('/', controller.login);
  *      requestBody:
  *        required: true
  *
- *        content:
- *          application/json:
- *           schema:
- *             $ref:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '/#/components/schemas/User'
+ *       
  *
  */
 user.put('/', controller.update);
 
+/**
+ * @swagger
+ * path:
+ * /users/email:
+ *    post:
+ *      description: Sends an email with the diagnosis.
+ *      summary: Sends an email.
+ *      tags:
+ *        - User
+ *
+ *      requestBody:
+ *        required: true
+ *
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Email'
+ * 
+ *      produces:
+ *        - application/json
+ *      responses:
+ *        200:
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  status: 
+ *                    type: string
+ */
 user.post('/email', controller.sendEmail);
 
 export default user;
