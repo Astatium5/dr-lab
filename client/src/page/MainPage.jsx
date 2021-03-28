@@ -1,5 +1,5 @@
 import '../scss/main-page.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Typography } from 'antd';
 import SideBar from '../components/SideBar';
 import PatientCard from '../components/PatientCard';
@@ -12,24 +12,24 @@ import Comments from '../components/Comments';
 
 const { Title } = Typography;
 
-const date = new Date().toLocaleDateString();
-const patients = [
-  {
-    name: 'Jill Smith',
-    lastVisit: date,
-    age: 32,
-  },
-  {
-    name: 'Joe Schmuck',
-    lastVisit: date,
-    age: 48,
-  },
-  {
-    name: 'Billy Bob',
-    lastVisit: date,
-    age: 69,
-  },
-];
+// const date = new Date().toLocaleDateString();
+// const patients = [
+//   {
+//     name: 'Jill Smith',
+//     lastVisit: date,
+//     age: 32,
+//   },
+//   {
+//     name: 'Joe Schmuck',
+//     lastVisit: date,
+//     age: 48,
+//   },
+//   {
+//     name: 'Billy Bob',
+//     lastVisit: date,
+//     age: 69,
+//   },
+// ];
 
 const assignees = [
   {
@@ -55,9 +55,33 @@ const comments = [
 
 function MainPage() {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [patients, setPatients] = useState([]);
+  const [currentPatient, setPatient] = useState(null);
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
+
+  const userID = JSON.parse(localStorage.user).ownerId;
+
+  useEffect(() => {
+    const payload = JSON.stringify({
+      email: userID,
+    });
+
+    window.fetch('/users/getPatients', {
+      method: 'POST',
+      body: payload,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((patientRes) => {
+        console.log(patientRes);
+        setPatient(patientRes.patients[0]);
+        setPatients(patientRes.patients);
+      });
+  }, []);
 
   return (
     <div className="main-page">
@@ -66,12 +90,12 @@ function MainPage() {
           <p className="heading">Your Patients</p>
           <hr />
           {patients.map((patient) => (
-            <PatientCard patient={patient} className="patient-card" />
+            <PatientCard setPatient={setPatient} patient={patient} className="patient-card" />
           ))}
           <p className="heading">Requested Reviews</p>
           <hr />
           {patients.reverse().map((patient) => (
-            <PatientCard patient={patient} className="patient-card" />
+            <PatientCard setPatient={setPatient} patient={patient} className="patient-card" />
           ))}
         </div>
         <Button className="btn-add-patient" type="primary" onClick={openModal}>
@@ -81,9 +105,17 @@ function MainPage() {
       <div className="content">
         <div className="container-header">
           <Avatar size={64} src="" className="avatar">
-            <span className="avatar-initial">{patients[0].name[0]}</span>
+            <span className="avatar-initial">
+              {
+              currentPatient ? currentPatient.firstName[0] : 'Loading..'
+            }
+            </span>
           </Avatar>
-          <Title className="title-header">{patients[0].name}</Title>
+          <Title className="title-header">
+            {
+            currentPatient ? currentPatient.firstName : 'Loading..'
+          }
+          </Title>
         </div>
 
         <PatientProgress status="waiting" />
