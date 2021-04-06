@@ -1,4 +1,4 @@
-### HooHacks 2021 Project
+#### Dr. Lab - HooHacks 2021 Project
 ## Inspiration
 The current process of going to a doctor seems inefficient for us, because it involves too many unnecessary actions from a doctor. The whole US and WHO trend now is relying on minimizing the patient-doctor physical interaction. This has led us to the idea that we can help to optimize this process by creating a web app, which is used for sharing medical pictures, which can be used for coming up with a diagnosis.
 
